@@ -4,197 +4,547 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Muhammad Yahya Khokhar - Portfolio</title>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: poppins,serif;
+      font-family: 'Poppins', sans-serif;
     }
-
     body {
-      background-color: #f4f4f4;
+      background-color: #eaeaea;
       color: #333;
+      transition: background-color 0.5s ease;
     }
-
+    body.dark-mode {
+    background-color: #222;
+    color: #eee;
+  }
     .welcome-screen {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(135deg, #1a1a1a, #4d4d4d);
       color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      text-align: center;
-      cursor: pointer;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      z-index: 9999; text-align: center; cursor: pointer;
+      animation: fadeIn 1s;
     }
-
-    .welcome-screen h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-    }
-
-    .welcome-screen p {
-      font-size: 1.2rem;
-      color: #aaa;
-    }
-
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .welcome-screen h1 { font-size: 3rem; margin-bottom: 20px; animation: slideIn 1s; }
+    @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .welcome-screen p { font-size: 1.2rem; color: #aaa; }
     header {
       background-color: #333;
       color: white;
       padding: 20px 0;
-      position: relative;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
-
+    body.dark-mode header {
+    background-color: #222;
+    color: #fff;
+  }
     .header-container {
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 30px;
+      max-width: 1200px;
+      margin: auto;
       position: relative;
     }
-
     .logo {
-      position: absolute;
-      left: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 80px;
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      border-radius: 0;
+      margin-right: 20px;
+      transition: transform 0.3s;
     }
-
+    .logo:hover { transform: scale(1.08); }
     .header-text {
       text-align: center;
+      width: 100%;
     }
-
     .header-text h1 {
       margin: 0;
-      font-size: 2rem;
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      animation: fadeIn 1s;
+      justify-content: center;
+      align-items: center;
+      display: flex;
     }
-
     .header-text p {
-      margin-top: 5px;
-      font-size: 1rem;
+      margin-top: 8px;
+      font-size: 1.2rem;
+      color: #ccc;
+      font-weight: 400;
+      justify-content: center;
+      align-items: center;
+      display: flex;
     }
-
     .profile {
       text-align: center;
-      padding: 20px;
+      padding: 40px 20px 10px 20px;
+      max-width: 900px;
+      margin: auto;
     }
-
-    .profile img {
-      border-radius: 50%;
-      width: 160px;
-      height: 160px;
-      object-fit: cover;
-      border: 4px solid #444;
+    .profile-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
     }
-
-    .profile h2 {
-      margin-top: 15px;
-      font-size: 1.8rem;
-    }
-
+    .profile-center img {
+  border-radius: 50%;
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border: 4px solid #444;
+  transition: transform 0.3s;
+  box-shadow: none;
+}
+.profile-center img:hover {
+  transform: scale(1.05);
+  box-shadow: none;
+}
+    body.dark-mode .profile-center img {
+  box-shadow: none;
+}
+body.dark-mode .profile-center img:hover {
+  box-shadow: none;
+}
     .skills {
       text-align: center;
       padding: 20px;
+      max-width: 900px;
+      margin: auto;
     }
-
     .skills h3 {
       margin-bottom: 10px;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #222;
     }
-
     .skills ul {
       list-style: none;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 15px;
+      margin-top: 10px;
     }
-
     .skills li {
-      background-color: #ddd;
-      padding: 8px 12px;
-      border-radius: 20px;
-    }
-
+  background-color: #ccc;
+  color: #222;
+  padding: 12px 24px;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s;
+  cursor: pointer;
+  box-shadow: none;
+}
+.skills li:hover {
+  background-color: #333;
+  color: #fff;
+  transform: scale(1.08);
+  transform: scale(1.12) rotate(-2deg);
+  border: 2px solid #0af;
+  box-shadow: none;
+}
+    body.dark-mode .skills li {
+    background-color: #444;
+    color: #eee;
+    box-shadow: none;
+  }
+  body.dark-mode .skills li:hover {
+    background-color: #0af;
+    color: #222;
+    transform: scale(1.12) rotate(-2deg);
+    border: 2px solid #fff;
+    box-shadow: none;
+  }
     .projects {
-      padding: 30px 20px;
+      padding: 40px 20px;
       display: flex;
       flex-direction: column;
       gap: 40px;
       max-width: 1000px;
       margin: auto;
     }
-
-    .project {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    .projects h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: #222;
+      text-align: center;
+      letter-spacing: 1px;
     }
-
+    body.dark-mode .projects h2 {
+      color: #fff;
+    }
+    .project {
+      background: #fff !important;
+      color: #222 !important;
+      padding: 24px;
+      border-radius: 14px;
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+      box-shadow: none;
+    }
+    .project-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 16px;
+    }
+    .project-tags {
+      margin-bottom: 8px;
+    }
+    .tag {
+      border-radius: 8px;
+      padding: 4px 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-right: 4px;
+      display: inline-block;
+    }
+    .tag-bi {
+      background: #0af;
+      color: #fff;
+    }
+    .tag-excel {
+      background: #eee;
+      color: #222;
+    }
+    .project-title {
+      font-size: 1.25rem;
+      color: #222;
+      margin-bottom: 8px;
+    }
+    .project-desc {
+      font-size: 0.98rem;
+      color: #444;
+      margin-bottom: 12px;
+    }
+    .project-link {
+      display: inline-block;
+      background: #0af;
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin-right: 8px;
+    }
+    .project-more {
+      margin-left: 10px;
+      background: #eee;
+      color: #222;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    body.dark-mode .project {
+      background: #000 !important;
+      color: #fff !important;
+    }
+    body.dark-mode .project-title {
+      color: #fff !important;
+    }
+    body.dark-mode .project-desc {
+      color: #fff !important;
+    }
+    body.dark-mode .tag-excel {
+      background: #222;
+      color: #fff;
+    }
+    body.dark-mode .project-link {
+      background: #222;
+      color: #fff;
+    }
+    body.dark-mode .project-more {
+      background: #222;
+      color: #fff;
+    }
+    .project:hover {
+      transform: translateY(-5px) scale(1.02);
+      background: #222;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    body.dark-mode .project {
+      background: #000 !important;
+      color: #fff !important;
+      box-shadow: none;
+    }
+    body.dark-mode .project:hover {
+      background: #222 !important;
+      color: #fff !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
     .project img {
       width: 100%;
       height: auto;
       border-radius: 10px;
       margin-top: 15px;
       object-fit: contain;
+      box-shadow: none;
     }
-
     .project h3 {
       color: #222;
       margin-bottom: 10px;
+      font-size: 1.6rem;
+      text-align: center;
+      font-weight: 600;
     }
+    body.dark-mode .project h3 {
+      color: #fff;
+    }
+    .project p {
+      font-size: 0.98rem;
+      color: #222;
+      margin-bottom: 12px;
+    }
+    body.dark-mode .project p {
+      color: #fff;
+    }
+    .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            
+            background: #fff;
+            color: #333;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            animation: modalIn 0.3s ease-out;
+        }
+        @keyframes modalIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        body.dark-mode .modal-content {
+            background: #222;
+            color: #eee;
+        }
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+        body.dark-mode .modal-content img {
+            border: 1px solid #444;
+        }
+        .modal-content .close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+        }
+        .modal-content .close:hover {
+            color: #333;
+        }
+        body.dark-mode .modal-content .close:hover {
+            color: #fff;
+        }
+        .modal-details {
+            text-align: left;
+        }
+        .modal-details h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        .modal-details p {
+            margin-bottom: 15px;
+        }
+        .modal-details .tag {
+            font-size: 0.9rem;
+        }
+        .modal-actions {
+            margin-top: 25px;
+            text-align: center;
+        }
 
-    .project a {
-      display: inline-block;
-      margin-top: 10px;
-      background: #333;
-      color: white;
-      padding: 8px 16px;
+    body.dark-mode .modal-content {
+      background: #222;
+      color: #fff;
+    }
+    .contact-box {
+  background: white;
+  padding: 32px;
+  border-radius: 14px;
+  max-width: 500px;
+  margin: 40px auto;
+  transition: box-shadow 0.3s;
+  box-shadow: none;
+}
+.contact-box:hover {
+  transform: scale(1.03);
+  box-shadow: none;
+}
+    body.dark-mode .contact-box {
+  background: #222;
+  color: #eee;
+  box-shadow: none;
+}
+body.dark-mode .contact-box:hover {
+  transform: scale(1.03);
+  box-shadow: none;
+}
+    section.contact {
+  padding: 40px 20px;
+  color: black;
+  text-align: center;
+}
+    section.contact h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    form {
+      max-width: 500px;
+      margin: auto;
+      text-align: left;
+    }
+    form label {
+      font-weight: 500;
+      margin-bottom: 5px;
+      display: block;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #888;
       border-radius: 5px;
-      text-decoration: none;
+      background-color: #333;
+      color: #fff;
+      font-size: 1rem;
     }
-
+    body.dark-mode form input, body.dark-mode form textarea {
+    background-color: #444;
+    color: #eee;
+    border: 1px solid #aaa;
+  }
+    form button {
+      background-color: #222;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    form button:hover {
+      background: #0af;
+      color: #fff;
+    }
+    body.dark-mode form button {
+    background-color: #0af;
+    color: #222;
+  }
+  body.dark-mode form button:hover {
+    background: #fff;
+    color: #0af;
+  }
     footer {
       background-color: #222;
       color: white;
       text-align: center;
-      padding: 15px;
+      padding: 18px;
       margin-top: 40px;
-      line-height: 1.6;
+      line-height: 1.7;
+      font-size: 1.05rem;
     }
-
     footer a {
       color: #0af;
       text-decoration: none;
+      font-weight: 500;
+    }
+    footer a:hover { text-decoration: underline; }
+    html { scroll-behavior: smooth; }
+    #mode-toggle {
+      margin-left:auto;
+      background:#222;
+      color:#fff;
+      border:none;
+      border-radius:20px;
+      padding:8px 18px;
+      font-size:1rem;
+      cursor:pointer;
+      transition:background 0.2s;
+    }
+    #mode-toggle:hover {
+      background: #0af;
+      color: #fff;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: none;
+    }
+    body.dark-mode #mode-toggle:hover {
+      background: #fff;
+      color: #0af;
+  box-shadow: none;
     }
   </style>
 </head>
 <body>
-
-  <div class="welcome-screen" id="welcome">
-    <img src="logo.png" alt="Logo" style="width:250px; height:250px; margin-bottom:20px;" />
-    <h1>Welcome to Portfolio</h1>
-    <p>Click anywhere to continue</p>
-  </div>
+  
 
   <header>
     <div class="header-container">
-      <img src="logo.png" alt="Logo" class="logo" />
+      <img src="logo2.png" alt="Logo" class="logo" />
       <div class="header-text">
         <h1>Muhammad Yahya Khokhar</h1>
         <p>| Power BI Developer | SQL Developer | Data Analyst |</p>
       </div>
+      <!-- Light/Dark mode toggle button -->
+      <button id="mode-toggle" style="margin-left:auto; background:#222; color:#fff; border:none; border-radius:20px; padding:8px 18px; font-size:1rem; cursor:pointer; transition:background 0.2s;">🌙 Dark Mode</button>
     </div>
   </header>
 
   <section class="profile">
-    <img src="YAHYA.jpeg" alt="Muhammad Yahya Khokhar" />
+    <div class="profile-center">
+      <img src="YAHYA.jpeg" alt="Muhammad Yahya Khokhar" />
+      
+    </div>
     <h2>Skills</h2>
   </section>
 
@@ -211,66 +561,160 @@
     </ul>
   </section>
 
+    
+  
   <section class="projects">
-    <h2 style="text-align:center;">Projects</h2>
-
-    <div class="project">
-      <h3>1. Daily Sales Backlog Report</h3>
-      <p><strong>Data Source:</strong> Excel</p>
-      <p><strong>Technologies:</strong> Power BI</p>
-      <p><strong>Description:</strong><br>Developed a high-impact Power BI dashboard leveraging a robust star schema data model from Excel to provide real-time, granular data analysis of sales backlog. This project was developed with a focus on German language data and reporting standards. This solution delivers critical insights into backlog volume, order cycle times, and aging, enabling proactive risk mitigation and optimized resource allocation. Key features include a dynamic "Aging Analysis" for temporal decomposition and dimensional breakdowns for targeted strategic interventions. This directly contributes to enhanced operational efficiency and improved order fulfillment rates.</p>
-      <img src="1.png" alt="Daily Sales Backlog Report"/>
-      <a href="https://drive.google.com/file/d/1JO0UhPOUaZ2EkDy6QNVECXp0XyQWOFHl/view?usp=drive_link" target="_blank">View Project</a>
+    <h2 class="projects-heading">Projects</h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:32px; justify-items:center;">
+      <div class="project project-card">
+        <img src="1.png" alt="Daily Sales Backlog Report" class="project-img" />
+        <div class="project-tags"><span class="tag tag-bi">Power BI</span> <span class="tag tag-excel">Excel</span></div>
+        <h3 class="project-title">Daily Sales Backlog Report</h3>
+        <p class="project-desc">Real-time dashboard for sales backlog analysis, aging, and order cycle times. German language data and reporting standards.</p>
+        <a href="https://drive.google.com/file/d/19kvrD2TTZxC7JL51ejU31-ahHcESy2B4/view?usp=drive_link" target="_blank" class="project-link">View Project</a>
+        <button onclick="openModal('project1')" class="project-more">More</button>
+      </div>
+      <div class="project project-card">
+        <img src="2.png" alt="Sales and Order Performance Dashboard" class="project-img" />
+        <div class="project-tags"><span class="tag tag-bi">Power BI</span> <span class="tag tag-excel">Excel</span></div>
+        <h3 class="project-title">Sales and Order Performance Dashboard</h3>
+        <p class="project-desc">Executive dashboard for sales and order optimization, trend analysis, and ratio analysis for fulfillment bottlenecks.</p>
+        <a href="https://drive.google.com/file/d/1N165dy9LncyLquS4zIZpRS3kJ7I01C5d/view?usp=drive_link" target="_blank" class="project-link">View Project</a>
+        <button onclick="openModal('project2')" class="project-more">More</button>
+      </div>
+      <div class="project project-card">
+        <img src="3.png" alt="Invoice and Inventory Dashboard" class="project-img" />
+        <div class="project-tags"><span class="tag tag-bi">Power BI</span> <span class="tag tag-excel">Excel</span></div>
+        <h3 class="project-title">Invoice Data and Inventory Overview</h3>
+        <p class="project-desc">Transactional and inventory analysis, multi-currency conversion, and rapid data filtration for operational excellence.</p>
+        <a href="https://drive.google.com/file/d/1_slZHLkBMDulm-k3dg9weu1d_e47_w8z/view?usp=drive_link" target="_blank" class="project-link">View Project</a>
+        <button onclick="openModal('project3')" class="project-more">More</button>
+      </div>
+      <div class="project project-card">
+        <img src="4.png" alt="Company Sales Dashboard" class="project-img" />
+        <div class="project-tags"><span class="tag tag-bi">Power BI</span> <span class="tag tag-excel">Excel</span></div>
+        <h3 class="project-title">Company Sales Dashboard</h3>
+        <p class="project-desc">Sales performance analytics hub for profit maximization, segmentation, and trend/cost analysis.</p>
+        <a href="https://drive.google.com/file/d/1JO0UhPOUaZ2EkDy6QNVECXp0XyQWOFHl/view?usp=drive_link" target="_blank" class="project-link">View Project</a>
+        <button onclick="openModal('project4')" class="project-more">More</button>
+      </div>
+      <div class="project project-card">
+        <img src="5.png" alt="Employee Information Dashboard" class="project-img" />
+        <div class="project-tags"><span class="tag tag-bi">Power BI</span> <span class="tag tag-sql">SQL</span></div>
+        <h3 class="project-title">Employee Information Dashboard</h3>
+        <p class="project-desc">HR data visualization platform for salary benchmarking, headcount, and compensation distribution.</p>
+        <a href="https://drive.google.com/file/d/1ALTSCzgVmI291A8NIeEmAeV9F6xaoyjC/view?usp=drive_link" target="_blank" class="project-link">View Project</a>
+        <button onclick="openModal('project5')" class="project-more">More</button>
+      </div>
     </div>
-
-    <div class="project">
-      <h3>2. Sales and Order Performance Dashboard</h3>
-      <p><strong>Data Source:</strong> Excel</p>
-      <p><strong>Technologies:</strong> Power BI</p>
-      <p><strong>Description:</strong><br>Engineered a comprehensive Power BI executive dashboard, built on an advanced star/snowflake data model from Excel, to drive strategic sales and order performance optimization. Through sophisticated data analysis and time intelligence functions, it provides longitudinal trend analysis across key metrics, empowering leadership with critical insights for revenue acceleration. A crucial ratio analysis identifies fulfillment bottlenecks, while integrated value/quantity analysis and contextual filters facilitate data-driven decision-making and performance benchmarking.</p>
-      <img src="2.png" alt="Sales and Order Performance Dashboard"/>
-      <a href="https://drive.google.com/file/d/1nUkSZYVb4uvEM3e-XhSxSyzrwIJ7XZRm/view?usp=drive_link" target="_blank">View Project</a>
-    </div>
-
-    <div class="project">
-      <h3>3. Invoice Data and Inventory Overview</h3>
-      <p><strong>Data Source:</strong> Excel</p>
-      <p><strong>Technologies:</strong> Power BI</p>
-      <p><strong>Description:</strong><br>Implemented a precise Power BI report for transactional and inventory data analysis, supported by a meticulously designed line-item data model from Excel. This solution incorporates a robust multi-currency conversion pipeline, ensuring financial data integrity and consistency. The data analysis provides deep, actionable visibility into individual invoice attributes and critical inventory management metrics, enabling proactive stock control and significant cost reduction opportunities. Interactive controls facilitate rapid, precise data filtration for operational excellence.</p>
-      <img src="3.png" alt="Invoice and Inventory Dashboard"/>
-      <a href="https://drive.google.com/file/d/1mzxHuV1sSbubozcSGemshQonKPplizXg/view?usp=drive_link" target="_blank">View Project</a>
-    </div>
-
-    <div class="project">
-      <h3>4. Company Sales Dashboard</h3>
-      <p><strong>Data Source:</strong> Excel</p>
-      <p><strong>Technologies:</strong> Power BI</p>
-      <p><strong>Description:</strong><br>Created a powerful Power BI Sales Performance Analytics Hub, utilizing an Excel-sourced data model, to deliver actionable market intelligence. This dashboard's data analysis capabilities provide rapid insights into profit maximization and sales volume drivers, identifying top-performing products and regions. Through dynamic temporal and product segmentation, it empowers strategic planning and revenue acceleration initiatives. Integrated trend and cost analysis further supports data-driven decision-making, optimizing sales strategies and resource allocation.</p>
-      <img src="4.png" alt="Company Sales Dashboard"/>
-      <a href="https://drive.google.com/file/d/1JO0UhPOUaZ2EkDy6QNVECXp0XyQWOFHl/view?usp=drive_link" target="_blank">View Project</a>
-    </div>
-
-    <div class="project">
-      <h3>5. Employee Information Dashboard</h3>
-      <p><strong>Data Source:</strong> SQL</p>
-      <p><strong>Technologies:</strong> Power BI</p>
-      <p><strong>Description:</strong><br>Designed and deployed a robust Power BI Human Resources Data Visualization platform, underpinned by a scalable SQL-extracted data model, ensuring high data integrity. The data analysis provides critical HR metrics, including comprehensive salary benchmarking, headcount, and departmental cardinality, informing strategic talent management. Interactive filtration capabilities enable granular insights into compensation distribution and organizational structure, facilitating data-driven decisions for resource optimization and workforce planning.</p>
-      <img src="5.png" alt="Employee Information Dashboard"/>
-      <a href="https://drive.google.com/file/d/1ALTSCzgVmI291A8NIeEmAeV9F6xaoyjC/view?usp=drive_link" target="_blank">View Project</a>
+  </section>
+  
+  <section class="contact">
+    <div class="contact-box">
+      <h2>Contact Me</h2>
+      <form action="https://formsubmit.co/muhammadyahyakhokhar12@gmail.com" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+        <button type="submit">Send</button>
+      </form>
     </div>
   </section>
 
   <footer>
-    <p>📧 Email: <a href="mailto:yahyakhokhar49@gmail.com">yahyakhokhar49@gmail.com</a><br>
-       📞 Contact: +92-300-3804122<br>
-       🔗 LinkedIn: <a href="https://www.linkedin.com/in/muhammad-yahya-khokhar-aa2b4535b" target="_blank">linkedin.com/in/muhammad-yahya-khokhar-aa2b4535b</a><br>
-       &copy; 2025 Muhammad Yahya Khokhar</p>
+    <p>
+      📧 Email: <a href="mailto:muhammadyahyakhokhar12@gmail.com">yahyakhokhar12@gmail.com</a><br>
+      📞 Contact: +92-300-3804122<br>
+      🔗 LinkedIn: <a href="https://www.linkedin.com/in/muhammad-yahya-khokhar-aa2b4535b" target="_blank">linkedin.com/in/muhammad-yahya-khokhar-aa2b4535b</a><br>
+      &copy; 2025 Muhammad Yahya Khokhar
+    </p>
   </footer>
 
+  <div class="modal" id="project1-modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('project1')">&times;</span>
+      <img src="1.png" alt="Daily Sales Backlog Report" />
+      <h3>Daily Sales Backlog Report</h3>
+      <div style="margin-bottom:15px;"><span class="tag tag-bi">Power BI</span> <span class="tag tag-excel">Excel</span></div>
+      <p>Developed a high-impact Power BI dashboard leveraging a robust star schema **data model** from **Excel** to provide real-time, granular **data analysis** of sales backlog. This solution delivers critical insights into backlog volume, order cycle times, and aging, enabling proactive risk mitigation and optimized resource allocation. Key features include a dynamic "Aging Analysis" for temporal decomposition and dimensional breakdowns for targeted strategic interventions. This directly contributes to enhanced operational efficiency and improved order fulfillment rates.</p>
+      <a href="https://drive.google.com/file/d/19kvrD2TTZxC7JL51ejU31-ahHcESy2B4/view?usp=drive_link" target="_blank" class="project-link">View Project</a>
+    </div>
+  </div>
+  <div class="modal" id="project2-modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('project2')">&times;</span>
+      <img src="2.png" alt="Sales and Order Performance Dashboard" />
+      <h3>Sales and Order Performance Dashboard</h3>
+      <div style="margin-bottom:8px;"><span class="tag tag-bi">Power BI</span> <span class="tag tag-excel">Excel</span></div>
+      <p>Engineered a comprehensive Power BI executive dashboard, built on an advanced star/snowflake **data model** from **Excel**, to drive strategic sales and order performance optimization. Through sophisticated **data analysis** and time intelligence functions, it provides longitudinal trend analysis across key metrics, empowering leadership with critical insights for revenue acceleration. A crucial ratio analysis identifies fulfillment bottlenecks, while integrated value/quantity analysis and contextual filters facilitate data-driven decision-making and performance benchmarking.</p>
+      <a href="https://drive.google.com/file/d/1N165dy9LncyLquS4zIZpRS3kJ7I01C5d/view?usp=drive_link" target="_blank" class="project-link">View Project</a>
+    </div>
+  </div>
+  <div class="modal" id="project3-modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('project3')">&times;</span>
+      <img src="3.png" alt="Invoice and Inventory Dashboard" />
+      <h3>Invoice Data and Inventory Overview</h3>
+      <div style="margin-bottom:8px;"><span class="tag tag-bi">Power BI</span> <span class="tag tag-excel">Excel</span></div>
+      <p>Implemented a precise Power BI report for transactional and inventory **data analysis**, supported by a meticulously designed line-item **data model** from **Excel**. This solution incorporates a robust multi-currency conversion pipeline, ensuring financial data integrity and consistency. The **data analysis** provides deep, actionable visibility into individual invoice attributes and critical inventory management metrics, enabling proactive stock control and significant cost reduction opportunities. Interactive controls facilitate rapid, precise data filtration for operational excellence.</p>
+      <a href="https://drive.google.com/file/d/1_slZHLkBMDulm-k3dg9weu1d_e47_w8z/view?usp=drive_link" target="_blank" class="project-link">View Project</a>
+    </div>
+  </div>
+  <div class="modal" id="project4-modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('project4')">&times;</span>
+      <img src="4.png" alt="Company Sales Dashboard" />
+      <h3>Company Sales Dashboard</h3>
+      <div style="margin-bottom:8px;"><span class="tag tag-bi">Power BI</span> <span class="tag tag-excel">Excel</span></div>
+      <p>Created a powerful Power BI **Sales Performance Analytics Hub**, utilizing an **Excel**-sourced **data model**, to deliver actionable market intelligence. This dashboard's **data analysis** capabilities provide rapid insights into profit maximization and sales volume drivers, identifying top-performing products and regions. Through dynamic temporal and product segmentation, it empowers strategic planning and revenue acceleration initiatives. Integrated trend and cost analysis further supports data-driven decision-making, optimizing sales strategies and resource allocation.</p>
+      <a href="https://drive.google.com/file/d/1JO0UhPOUaZ2EkDy6QNVECXp0XyQWOFHl/view?usp=drive_link" target="_blank" class="project-link">View Project</a>
+    </div>
+  </div>
+  <div class="modal" id="project5-modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('project5')">&times;</span>
+      <img src="5.png" alt="Employee Information Dashboard" />
+      <h3>Employee Information Dashboard</h3>
+      <div style="margin-bottom:8px;"><span class="tag tag-bi">Power BI</span> <span class="tag tag-sql">SQL</span></div>
+      <p>Designed and deployed a robust Power BI **Human Resources Data Visualization platform**, underpinned by a scalable **SQL**-extracted **data model**, ensuring high data integrity. The **data analysis** provides critical HR metrics, including comprehensive salary benchmarking, headcount, and departmental cardinality, informing strategic talent management. Interactive filtration capabilities enable granular insights into compensation distribution and organizational structure, facilitating data-driven decisions for resource optimization and workforce planning.</p>
+      <a href="https://drive.google.com/file/d/1ALTSCzgVmI291A8NIeEmAeV9F6xaoyjC/view?usp=drive_link" target="_blank" class="project-link">View Project</a>
+    </div>
+  </div>
+
+
   <script>
-    document.getElementById("welcome").addEventListener("click", function () {
-      this.style.display = "none";
+    function openModal(id) {
+      document.body.style.overflow = 'hidden';
+      document.getElementById(id + '-modal').style.display = 'flex';
+    }
+    function closeModal(id) {
+      document.body.style.overflow = 'auto';
+      document.getElementById(id + '-modal').style.display = 'none';
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    const modeToggle = document.getElementById('mode-toggle');
+    function setMode(isDark) {
+      document.body.classList.toggle('dark-mode', isDark);
+      modeToggle.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+    }
+    let darkMode = localStorage.getItem('darkMode') === 'true';
+    setMode(darkMode);
+    modeToggle.addEventListener('click', () => {
+      darkMode = !darkMode;
+      localStorage.setItem('darkMode', darkMode);
+      setMode(darkMode);
     });
   </script>
 </body>
 </html>
+
